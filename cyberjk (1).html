@@ -1,6 +1,9 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<html>
+<head>
+  <meta charset=utf8>
+    <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>CYBERJK</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Silkscreen:wght@400;700&display=swap">
 <style>
 /* Layout: tela de jogo 16:9 em pixel art, HUD neon sobreposto (retrato, barras, objetivo, minimapa, quiz de combate) */
@@ -164,7 +167,6 @@ kbd{font:600 clamp(7px,1.2cqw,14px)/1 var(--hud);padding:.35cqw .55cqw;border:ma
       <div class="card" id="card"></div>
     </div>
   </div>
-  <p class="note">Dica: no celular, gire o aparelho para a horizontal. Cada bloqueio digital tem uma pergunta; erros custam energia. Caixotes, barris e barreiras matam se você pisar neles: pule por cima!</p>
 </div>
 <script>
 'use strict';
@@ -315,8 +317,8 @@ function ambience(){
 const SCL=2;
 const bg=document.createElement('canvas');bg.width=W*SCL;bg.height=H*SCL;
 const SIGNSETS=[['#ff2bd6','#3ee6ff'],['#ff3b5c','#b46bff'],['#3ee6ff','#ffd23f'],['#b46bff','#ff2bd6'],['#ffd23f','#ff3b5c'],['#3dff7a','#3ee6ff'],['#ff2bd6','#ffd23f'],['#3ee6ff','#ff3b5c']];
-const NAMES=['HANGANG TECH','GANGNAM','NEO-MART','DATA CORE','CYBERJK','K-BBQ 24'];
-const KANA=['서울','꿈','미래의 도시','사이버'];
+const NAMES=['I LOVE SEOUL','AGUSTD','EGO','MOONCHILD','BEGINJK','DAGSANGS'];
+const KANA=[' 박지민',' 전정국','방탄소년단','김석진'];
 let obstacles=[],hazards=[],solids=[],glows=[],refl=[];
 function mk(w,h,fn){const k=document.createElement('canvas');k.width=w*SCL;k.height=h*SCL;const c=k.getContext('2d');c.scale(SCL,SCL);fn(c);return k}
 function lg(c,x0,y0,x1,y1,st){const g=c.createLinearGradient(x0,y0,x1,y1);st.forEach(s=>g.addColorStop(s[0],s[1]));return g}
@@ -679,15 +681,19 @@ function showScr(html,btnLabel,fn){
 }
 function hideScr(){$('#scr').hidden=true}
 function menuScr(){
-  showScr('<span class="kick">SEUL · COREIA DO SUL · 2089</span><h2>CYBERJK</h2><p>Uma falha no sistema central da cidade ameaça apagar todos os dados. Você é um técnico encarregado de recuperar o sistema antes que seja tarde demais. Atenção: caixotes, barris e barreiras são mortais se você pisar neles. Pule por cima com ESPAÇO!</p><ul>'+PHASES.map(p=>'<li>'+p.t+'</li>').join('')+'</ul>','INICIAR MISSÃO',startGame);
+  showScr('<span class="kick">SEUL · COREIA DO SUL · 2089</span><h2>CYBERJK</h2><p>Uma falha no sistema central da cidade ameaça apagar todos os dados. Você é o JK técnico encarregado de recuperar o sistema antes que seja tarde demais. Atenção: caixotes, barris e barreiras são mortais se você pisar neles. Pule por cima com ESPAÇO!</p><ul>'+PHASES.map(p=>'<li>'+p.t+'</li>').join('')+'</ul>','INICIAR MISSÃO',startGame);
 }
 function overScr(why){
   G.state='over';$('#quiz').classList.remove('on');
-  showScr('<span class="kick">FALHA CRÍTICA</span><h2>DADOS PERDIDOS</h2><p>'+(why==='step'?'Você pisou em um obstáculo e perdeu a última vida na fase ':'Sua energia acabou na fase ')+(G.phase+1)+' ('+PHASES[G.phase].t+'). Revise o assunto e tente de novo.</p><div class="stat">PONTOS: '+G.score+'</div>','TENTAR NOVAMENTE',retryPhase);
+  showScr('<span class="kick">FALHA CRÍTICA</span>
+          <h2>DADOS PERDIDOS</h2><p>'+(why==='step'?'Você pisou em um obstáculo e perdeu a última vida na fase ':'Sua energia acabou na fase ')+(G.phase+1)+' ('+PHASES[G.phase].t+'). Revise o assunto e tente de novo.</p>
+    <div class="stat">PONTOS: '+G.score+'</div>','TENTAR NOVAMENTE',retryPhase);
 }
 function winScr(){
   G.state='win';sfx.win();
-  showScr('<span class="kick">MISSÃO CUMPRIDA</span><h2>SISTEMA RECUPERADO</h2><p>Todos os bloqueios digitais foram destruídos e o sistema central de Seul voltou a funcionar.</p><div class="stat">PONTUAÇÃO FINAL: '+G.score+'</div>','JOGAR DE NOVO',startGame);
+  showScr('<span class="kick">MISSÃO CUMPRIDA</span>
+          <h2>SISTEMA RECUPERADO</h2><p>Todos os bloqueios digitais foram destruídos e graças a você o sistema central de Seul voltou a funcionar.</p>
+    <div class="stat">PONTUAÇÃO FINAL: '+G.score+'</div>','QUER JOGAR DE NOVO??',startGame);
 }
 
 /* ===== quiz de combate ===== */
@@ -850,5 +856,5 @@ buildBg(0);G.enemies=spawnEnemies(0);hud();menuScr();
 if(document.fonts&&document.fonts.load){Promise.all([document.fonts.load('bold 9px "Chakra Petch"'),document.fonts.load('600 12px "Chakra Petch"')]).then(()=>{buildBg(G.phase)}).catch(()=>{})}
 requestAnimationFrame(frame);
 </script>
-
-</body></html>
+</body>
+</html>
